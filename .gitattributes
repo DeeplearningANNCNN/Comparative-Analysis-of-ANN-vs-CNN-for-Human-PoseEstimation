@@ -1,0 +1,7 @@
+AlexNet/AlexNET_four_poses_1.h5 filter=lfs diff=lfs merge=lfs -text
+AlexNet/AlexNET_four_poses_2.h5 filter=lfs diff=lfs merge=lfs -text
+Lenet-5/LeNET_four_poses_1.h5 filter=lfs diff=lfs merge=lfs -text
+Lenet-5/LeNET_four_poses_2.h5 filter=lfs diff=lfs merge=lfs -text
+ResNet-34/ResNet34_with_shuffle_2.h5 filter=lfs diff=lfs merge=lfs -text
+VGG-11/VGG11_2.h5 filter=lfs diff=lfs merge=lfs -text
+VGG-13/VGG13_1.h5 filter=lfs diff=lfs merge=lfs -text
