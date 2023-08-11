@@ -26,19 +26,22 @@ key = keyboard.read_key()
 cx = [0 for x in range(33)]
 cy = [0 for y in range(33)]
 
-if key == 'z':
-    time.sleep(5)
-    start_time = datetime.datetime.now()
+
+# Main
+
+if key == 'z':                               # Wait for the key press "z"
+    time.sleep(5)                             
+    start_time = datetime.datetime.now()     # Record the starting time 
     i=503
     while True:
-        success, img = cap.read()
-        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        results = pose.process(imgRGB)
+        success, img = cap.read()            # Read the image from the video capture object   
+        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert the image from BGR to RGB format
+        results = pose.process(imgRGB)                # Identiy the pose in the image using the pose object 
         image = np.zeros((480, 640, 3))
 
         if results.pose_landmarks:
-            mpDraw.draw_landmarks(image, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
-            for id, lm in enumerate(results.pose_landmarks.landmark):
+            mpDraw.draw_landmarks(image, results.pose_landmarks, mpPose.POSE_CONNECTIONS) # Draw the obtained pose keypoints
+            for id, lm in enumerate(results.pose_landmarks.landmark):       
                 h, w, c = img.shape
                 print(h, w, c)
                 print(id, lm)
@@ -49,18 +52,18 @@ if key == 'z':
                 y_min = min(cy)
                 roi = image[y_min-10:y_max+10, x_min-10:x_max+10]
                 #cv2.circle(img, (cx, cy), 5, (255, 0, 0), cv2.FILLED)
-            path = f"D:\\Pycharm\Anomalous_detection_CNN\\data_four_poses\\test\\normal\\Image{i}.png"
-            cv2.imwrite(path, roi)
+            path = f"D:\\Pycharm\\Anomalous_detection_CNN\\data_four_poses\\test\\normal\\Image{i}.png"
+            cv2.imwrite(path, roi)     # Define the path and save the image
             i = i + 1
 
-        later_time = datetime.datetime.now()
-        difference = later_time - start_time
-        sec_diff = difference.total_seconds()
+        later_time = datetime.datetime.now()           # Calculate for every loop
+        difference = later_time - start_time           # Calcuale the difference between Start and End time 
+        sec_diff = difference.total_seconds()          # Get the time in seconds 
         sec_diff = round(sec_diff)
         #print(sec_diff)
         #print("\n")
-        if sec_diff == 2:
+        if sec_diff == 2:                              # If the time reaches a certain set seconds the loop breaks    
             break
 
-        cv2.imshow("Image", img)
+        cv2.imshow("Image", img)                       # Show the image in a window
         cv2.waitKey(80)
