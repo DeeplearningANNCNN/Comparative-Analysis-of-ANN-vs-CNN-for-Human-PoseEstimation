@@ -34,9 +34,9 @@ if key == 'z':                               # Wait for the key press "z"
     start_time = datetime.datetime.now()     # Record the starting time 
     i=503
     while True:
-        success, img = cap.read()            # Read the image from the video capture object   
-        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert the image from BGR to RGB format
-        results = pose.process(imgRGB)                # Identiy the pose in the image using the pose object 
+        success, img = cap.read()                       # Read the image from the video capture object   
+        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)   # Convert the image from BGR to RGB format
+        results = pose.process(imgRGB)                  # Identiy the pose in the image using the pose object 
         image = np.zeros((480, 640, 3))
 
         if results.pose_landmarks:
@@ -45,13 +45,12 @@ if key == 'z':                               # Wait for the key press "z"
                 h, w, c = img.shape
                 print(h, w, c)
                 print(id, lm)
-                cx[id], cy[id] = int(lm.x * w), int(lm.y * h)
-                x_max = max(cx)
+                cx[id], cy[id] = int(lm.x * w), int(lm.y * h)     # Use the keypoints to draw a bounding box
+                x_max = max(cx)                                  
                 x_min = min(cx)
                 y_max = max(cy)
                 y_min = min(cy)
-                roi = image[y_min-10:y_max+10, x_min-10:x_max+10]
-                #cv2.circle(img, (cx, cy), 5, (255, 0, 0), cv2.FILLED)
+                roi = image[y_min-10:y_max+10, x_min-10:x_max+10]     # Crop the ROI
             path = f"D:\\Pycharm\\Anomalous_detection_CNN\\data_four_poses\\test\\normal\\Image{i}.png"
             cv2.imwrite(path, roi)     # Define the path and save the image
             i = i + 1
